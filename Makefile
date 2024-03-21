@@ -1,11 +1,9 @@
-.PHONY: backend frontend
+SHELL = bash
 
-backend:
-    @echo "Building backend..."
-    python app.py
+.PHONY: server
+server:
+	pip install -r requirements.txt && python app.py
 
-frontend:
-    @echo "Building frontend..."
-    cd frontend/src && npm start
-
-build: backend frontend
+.PHONY: client
+client:
+	cd frontend && npm install && npm start	
