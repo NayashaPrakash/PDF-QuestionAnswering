@@ -1,3 +1,7 @@
+
+https://github.com/NayashaPrakash/PDF-QuestionAnswering/assets/98101207/b0273267-fc09-4533-9e68-ef78ed676170
+
+
 # PDF-QuestionAnswering
 A simple PDF Question Answering application
 
