@@ -1,0 +1,135 @@
+Base styles
+body {
+  font-family: sans-serif;
+  padding: 0;
+}
+.home {
+  margin-top: 0px;
+  margin-left: 80px;
+}
+/* Top navbar styles */
+.top-navbar {
+  /* display: ; */
+  justify-content: space-between; /* Distributes elements evenly */
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #e8f0fe;  /* Light blue */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  position: relative;  /* Set relative positioning for stacking */
+  z-index: 10;  /* Increase z-index to bring top navbar on top */
+}
+
+.top-navbar a {
+  color: #333;
+  text-decoration: none;
+  padding: 10px 15px;
+  margin-right: 10px;
+}
+
+.top-navbar a:hover {
+  background-color: #ddd;
+}
+
+/* Side navbar styles */
+.side-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 200px;
+  background-color: #f0fee8;  /* Light yellow, complementary to top navbar */
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  transition: all 0.3s ease-in-out;  /* Smooth transition on hover */
+  z-index: 5;  /* Set z-index lower to stack behind top navbar */
+}
+
+.side-navbar button {
+  color: #333;
+  text-decoration: none;
+  padding: 15px 20px;
+  display: block;
+  width: 100%;  /* Fill entire width of navbar */
+  background-color: transparent;  /* Transparent background for button */
+  border: none;
+  cursor: pointer;
+  outline: none;  /* Remove focus outline */
+  transition: background-color 0.3s ease-in-out;
+}
+
+.side-navbar button:hover {
+  background-color: #e8f0fe;  /* Lighter shade on hover */
+}
+
+/* Add a small margin to separate top and side navbars visually */
+.side-navbar {
+  margin-top: 10px;  /* Adjust as needed */
+}
+
+/* Base styles */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;  /* Make the body a flex container */
+  min-height: 10vh;  /* Set minimum height for full viewport */
+  justify-content: center;  /* Center content horizontally */
+  align-items: center;  /* Center content vertically (optional) */
+}
+
+/* Top navbar styles */
+.top-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #e8f0fe;  /* Light blue */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  position: relative;  /* Set relative positioning for stacking */
+  z-index: 10;  /* Increase z-index to bring top navbar on top */
+}
+
+.top-navbar a {
+  color: #333;
+  text-decoration: none;
+  /* padding: 10px 15px; */
+  margin-right: 10px;
+}
+
+.top-navbar a:hover {
+  background-color: #ddd;
+}
+
+/* Side navbar styles */
+.side-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 200px;
+  background-color: #f0fee8;  /* Light yellow, complementary to top navbar */
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  transition: all 0.3s ease-in-out;  /* Smooth transition on hover */
+  z-index: 5;  /* Set z-index lower to stack behind top navbar */
+}
+
+.side-navbar button {
+  color: #333;
+  text-decoration: none;
+  padding: 15px 20px;
+  display: block;
+  width: 100%;  /* Fill entire width of navbar */
+  background-color: transparent;  /* Transparent background for button */
+  border: none;
+  cursor: pointer;
+  outline: none;  /* Remove focus outline */
+  transition: background-color 0.3s ease-in-out;
+}
+
+.side-navbar button:hover {
+  background-color: #e8f0fe;  /* Lighter shade on hover */
+}
+
+/* Add a small margin to separate top and side navbars visually */
+.side-navbar {
+  margin-top: 10px;  /* Adjust as needed */
+}
