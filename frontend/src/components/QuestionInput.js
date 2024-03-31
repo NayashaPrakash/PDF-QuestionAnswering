@@ -1,15 +1,22 @@
-import React, { useState, useRef, useEffect } from "react"; 
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import CloseIcon from '@mui/icons-material/Close';
-import DeleteIcon from "@mui/icons-material/Delete";
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import "../compStyle/chat.css";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ChatBotIcon from "../images/logo.png";
+import FeedbackDialog from "./Feedback";
 
 const QuestionInput = ({ onClose }) => {
   const [userQuestion, setUserQuestion] = useState("");
-  const [conversation, setConversation] = useState([]); // Stores conversation history
+  const [conversation, setConversation] = useState([]);
+  const [askedQuestionsCount, setAskedQuestionsCount] = useState(0);
+  const [showFeedbackDialog, setShowFeedbackDialog] = useState(false);
 
   const askQuestion = async () => {
+    if (userQuestion.trim() === "") {
+      alert("No question asked!");
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:5000/ask-question", {
         question: userQuestion,
@@ -19,6 +26,13 @@ const QuestionInput = ({ onClose }) => {
         { question: userQuestion, answer: response.data.response },
       ]);
       setUserQuestion("");
+
+      setAskedQuestionsCount((prevCount) => prevCount + 1);
+
+      // Check if askedQuestionsCount is equal to 3, then show feedback dialog
+      if (askedQuestionsCount === 2) {
+        setShowFeedbackDialog(true);
+      }
     } catch (error) {
       console.error("Error asking question:", error);
     }
@@ -32,62 +46,74 @@ const QuestionInput = ({ onClose }) => {
     setConversation([]);
   };
 
-  const conversationRef = useRef(null); // Ref for scrolling to bottom
+  // To Handle feedback submission
+  const handleFeedbackSubmit = (feedback) => {  
+    console.log("Feedback submitted:", feedback);
+  };
+
+  const conversationRef = useRef(null);
 
   const scrollToBottom = () => {
-    conversationRef.current.scrollTop = conversationRef.current.scrollHeight;
+    if (conversationRef.current) {
+      conversationRef.current.scrollTop = conversationRef.current.scrollHeight;
+    }
   };
 
   useEffect(() => {
     scrollToBottom();
-  }, [conversation]); // Scroll to bottom after new message
+  }, [conversation]);
 
   return (
-<div className="input-container">
-      <div className="question-container" ref={conversationRef}>
-        {conversation.map((item, index) => (
-          <div key={index} className="message">
-            {item.question && <p className="question">{item.question}</p>}
-            {item.answer && (
-              <div className="answer-container">
-                <p className="answer">{item.answer}</p>
-              </div>
-            )}
-          </div>
-        ))}
-   
-      <textarea
-        className="question-input"
-        value={userQuestion}
-        onChange={(e) => setUserQuestion(e.target.value)}
-        placeholder="Enter your question..."
-      />
-      <div className="button-cont">
-      
-      <button className="ask-button" title="Enter" onClick={askQuestion}>
-      <ArrowUpwardIcon />
-      </button >
-      <button
-         className="ask-button"
-        title="Delete Chat History"
-        onClick={handleDeleteChat}
-      >
-      
-        <DeleteIcon sx={{ color: "white" }}/>
-   
-      </button>
-      <button
-         className="ask-button"
-        title="Closing pdf clears all data"
-        onClick={handleDeleteChat}
-      >
-      
-        <CloseIcon sx={{ color: "white" }}/>
-   
-      </button>
-      
+    <div className="chat-container">
+      <div className="conversation-container">
+        <div className="conversation" ref={conversationRef}>
+          {conversation.map((item, index) => (
+            <div key={index} className="message">
+              {item.question && (
+                <div className="user-message">
+                  <AccountCircleIcon
+                    className="user-icon"
+                    style={{ fontSize: "40px", paddingLeft: "4px" }}
+                  />
+                  <span className="message-text">{item.question}</span>
+                </div>
+              )}
+              {item.answer && (
+                <div className="bot-message">
+                  <img
+                    src={ChatBotIcon}
+                    alt="ChatBot"
+                    className="chatbot-icon"
+                  />
+                  <span className="message-text">{item.answer}</span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+      <div className="input-container">
+        <div className="chat-bubble">
+          <input
+            type="text"
+            className="question-input"
+            value={userQuestion}
+            onChange={(e) => setUserQuestion(e.target.value)}
+            placeholder="Ask me anything..."
+          />
+          <button className="submit-button" style={{marginTop: '-59px', marginLeft: '96%'}} onClick={askQuestion}>
+            <ArrowUpwardIcon />
+          </button>
+          
+          
+        </div>
+      </div>
+      
+      <FeedbackDialog
+        open={showFeedbackDialog}
+        onClose={() => setShowFeedbackDialog(false)}
+        onFeedbackSubmit={handleFeedbackSubmit}
+      />
     </div>
   );
 };

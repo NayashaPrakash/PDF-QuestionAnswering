@@ -71,7 +71,7 @@ def ask_question():
     with get_openai_callback() as cb:
         response = chain.run(input_documents=docs, question=user_question)
     # response = 'success!'
-    
+    print(response)
     return jsonify({'response': response})
 
 
@@ -80,7 +80,7 @@ TRANSLATION_API_URL = "https://api-inference.huggingface.co/models/facebook/mbar
 
 
 # Hugging Face API token
-API_TOKEN = "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"
+API_TOKEN = ""
 
 def query_api(api_url, payload):
     headers = {"Authorization": f"Bearer {API_TOKEN}"}

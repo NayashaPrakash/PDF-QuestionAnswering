@@ -4,13 +4,27 @@ import QuestionInput from "./components/QuestionInput";
 import ResponseDisplay from "./components/ResponseDisplay";
 import "./compStyle/style.css";
 import "./compStyle/pdfUpload.css";
+import axios from 'axios';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 function App() {
-  const [uploaded, setUploaded] = useState(false);
+  const [pdfFile, setPdfFile] = useState(null);
   const [response, setResponse] = useState("");
 
-  const handleUpload = () => {
-    setUploaded(true);
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    setPdfFile(file);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await axios.post('http://localhost:5000/upload-pdf', formData);
+      console.log(response.data.message);
+   
+    } catch (error) {
+      console.error('Error uploading PDF:', error);
+    }
   };
 
   const handleAsk = (res) => {
@@ -18,17 +32,31 @@ function App() {
   };
 
   return (
-    // <div>
-      <div className="home">
-        <h1>Query your PDF 💬</h1>
-      {!uploaded && <PdfUpload onUpload={handleUpload} />}
-      {uploaded && (
-        <div>
-          <QuestionInput onAsk={handleAsk} />
-          <ResponseDisplay response={response} />
+    <div>
+      <div class="container">
+        <div class="logo">
+        <a href="https://aiplanet.com/">
+          <img src={require("/home/nitin/langchain-ask-pdf-main/frontend/src/images/aiplan.png")} className="d-inline-block align-top" height={80} alt="" />
+        </a>
         </div>
-      )}
-      
+        <nav>
+          <form class="form-inline my-2 my-lg-0">
+            <div class="file">
+            <p className="filename" style={{paddingRight: '10px'}}>{pdfFile?.name}</p>
+              <label for='input-file'>
+              <AddCircleOutlineIcon style={{paddingRight: '10px'}}/>Upload PDF
+                <input id='input-file' type='file' style={{ display: 'none' }} onChange={handleFileChange} />
+              </label>
+            </div>
+          </form>
+        </nav>
+        <div className="horizontal-line"></div>
+      </div>
+      <div>
+        <PdfUpload file={pdfFile} /> 
+        <QuestionInput onAsk={handleAsk} />
+        <ResponseDisplay response={response} />
+      </div>
     </div>
   );
 }
