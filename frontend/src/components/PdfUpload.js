@@ -11,7 +11,7 @@ const PdfUpload = ({ file, onUploadSuccess }) => {
 
 
   const handleView = async () => {
-    const response = await axios.post('http://localhost:5000/view');
+    const response = await axios.post('https://pdf-questionanswering-1.onrender.com/view');
     console.log(response.data);
     setExtractedText(response.data);
     setShowQuestionDialog(true);
