@@ -19,7 +19,7 @@ function App() {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await axios.post('http://localhost:5000/upload-pdf', formData);
+      const response = await axios.post('https://pdf-questionanswering-1.onrender.com/upload-pdf', formData);
       console.log(response.data.message);
    
     } catch (error) {
