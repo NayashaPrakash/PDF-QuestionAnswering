@@ -36,7 +36,7 @@ function App() {
       <div class="container">
         <div class="logo">
         <a href="https://aiplanet.com/">
-          <img src={require("/home/nitin/langchain-ask-pdf-main/frontend/src/images/aiplan.png")} className="d-inline-block align-top" height={80} alt="" />
+          <img src={require("./aiplan.png")} className="d-inline-block align-top" height={80} alt="" />
         </a>
         </div>
         <nav>
