@@ -29,6 +29,10 @@ def process_pdf(pdf_file):
     pdf_text = text
     # print(pdf_text)
 
+@app.route('/')
+def index():
+    return 'Hello, World!'
+
 @app.route('/upload-pdf', methods=['POST'])
 def upload_pdf():
     if 'file' not in request.files:
