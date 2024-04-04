@@ -79,13 +79,8 @@ SUMMARIZATION_API_URL = "https://api-inference.huggingface.co/models/facebook/ba
 TRANSLATION_API_URL = "https://api-inference.huggingface.co/models/facebook/mbart-large-50-one-to-many-mmt"
 
 
-<<<<<<< HEAD
 # Hugging Face API token
 API_TOKEN = ""
-=======
-# Put your Hugging Face API token
-API_TOKEN = "XXXXXXXXXXXXX"
->>>>>>> 127acde4a9b54be3471c6ee55a0b28d92085e86f
 
 def query_api(api_url, payload):
     headers = {"Authorization": f"Bearer {API_TOKEN}"}
