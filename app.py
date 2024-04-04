@@ -70,7 +70,7 @@ def ask_question():
     embeddings = OpenAIEmbeddings()
     knowledge_base = FAISS.from_texts(chunks, embeddings)
     docs = knowledge_base.similarity_search(user_question)
-    llm = OpenAI()
+    llm = OpenAI(model_name="text-gpt-3.5-turbo")
     chain = load_qa_chain(llm, chain_type="stuff")
     with get_openai_callback() as cb:
         response = chain.run(input_documents=docs, question=user_question)
