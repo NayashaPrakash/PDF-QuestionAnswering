@@ -18,7 +18,7 @@ const QuestionInput = ({ onClose }) => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:5000/ask-question", {
+      const response = await axios.post("https://pdf-questionanswering-1.onrender.com/ask-question", {
         question: userQuestion,
       });
       setConversation((prevConversation) => [

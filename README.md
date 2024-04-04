@@ -1,5 +1,11 @@
 
-https://github.com/NayashaPrakash/PDF-QuestionAnswering/assets/98101207/b0273267-fc09-4533-9e68-ef78ed676170
+
+
+
+https://github.com/NayashaPrakash/PDF-QuestionAnswering/assets/98101207/b113eb48-dd89-40be-a188-a6a65b9bc734
+
+
+
 
 
 # PDF-QuestionAnswering

@@ -29,6 +29,10 @@ def process_pdf(pdf_file):
     pdf_text = text
     # print(pdf_text)
 
+@app.route('/')
+def index():
+    return 'Hello, World!'
+
 @app.route('/upload-pdf', methods=['POST'])
 def upload_pdf():
     if 'file' not in request.files:
@@ -79,8 +83,13 @@ SUMMARIZATION_API_URL = "https://api-inference.huggingface.co/models/facebook/ba
 TRANSLATION_API_URL = "https://api-inference.huggingface.co/models/facebook/mbart-large-50-one-to-many-mmt"
 
 
+<<<<<<< HEAD
 # Hugging Face API token
 API_TOKEN = ""
+=======
+API_TOKEN = ""
+
+>>>>>>> 5ca3129cab63fe39c7d96dc1156dfa9f2b40a985
 
 def query_api(api_url, payload):
     headers = {"Authorization": f"Bearer {API_TOKEN}"}
@@ -113,4 +122,4 @@ def summarize_text():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=1000) 

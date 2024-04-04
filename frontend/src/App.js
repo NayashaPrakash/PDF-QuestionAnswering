@@ -19,7 +19,7 @@ function App() {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await axios.post('http://localhost:5000/upload-pdf', formData);
+      const response = await axios.post('https://pdf-questionanswering-1.onrender.com/upload-pdf', formData);
       console.log(response.data.message);
    
     } catch (error) {
@@ -36,7 +36,7 @@ function App() {
       <div class="container">
         <div class="logo">
         <a href="https://aiplanet.com/">
-          <img src={require("/home/nitin/langchain-ask-pdf-main/frontend/src/images/aiplan.png")} className="d-inline-block align-top" height={80} alt="" />
+          <img src={require("./aiplan.png")} className="d-inline-block align-top" height={80} alt="" />
         </a>
         </div>
         <nav>
