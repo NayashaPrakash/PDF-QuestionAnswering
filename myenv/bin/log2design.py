@@ -1,4 +1,4 @@
-#!/home/nitin/langchain-ask-pdf-main/myenv/bin/python3.11
+#!/home/nitin/aiplanet-chatbot/myenv/bin/python3.11
 # Create Lyman/Fitz style long flat Design Files from plain-text onset files
 # EKK / June 2015
 # Python 2/3 compatibile, depends on Pandas and Numpy/Scipy

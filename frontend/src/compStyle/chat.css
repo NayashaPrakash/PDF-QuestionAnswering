@@ -10,9 +10,16 @@
     position: fixed;
     bottom: 0;
     width: 80%;
+    flex-direction: column-reverse;
+    
   }
 
-
+.conversation {
+  max-height: 600px;
+  overflow: scroll;
+  margin-top: 30px;
+  overflow-x: hidden;
+}
 
   
   .submit-button,

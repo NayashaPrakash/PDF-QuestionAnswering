@@ -1,4 +1,4 @@
-#!/home/nitin/langchain-ask-pdf-main/myenv/bin/python3.11
+#!/home/nitin/aiplanet-chatbot/myenv/bin/python3.11
 '''
 The MIT License (MIT)
 

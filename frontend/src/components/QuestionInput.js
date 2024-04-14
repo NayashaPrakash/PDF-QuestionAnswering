@@ -5,46 +5,93 @@ import "../compStyle/chat.css";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ChatBotIcon from "../images/logo.png";
 import FeedbackDialog from "./Feedback";
+import Loader from "./loader";
 
-const QuestionInput = ({ onClose }) => {
+
+const QuestionInput = ({ onClose, resetChat }) => {
   const [userQuestion, setUserQuestion] = useState("");
   const [conversation, setConversation] = useState([]);
   const [askedQuestionsCount, setAskedQuestionsCount] = useState(0);
   const [showFeedbackDialog, setShowFeedbackDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+
 
   const askQuestion = async () => {
     if (userQuestion.trim() === "") {
       alert("No question asked!");
       return;
     }
+    // addUserQuestion(userQuestion);
+    setLoading(true);
+
     try {
+      addUserQuestion(userQuestion);
       const response = await axios.post("https://pdf-questionanswering-1.onrender.com/ask-question", {
         question: userQuestion,
+        
       });
-      setConversation((prevConversation) => [
-        ...prevConversation,
-        { question: userQuestion, answer: response.data.response },
-      ]);
-      setUserQuestion("");
-
+      // setUserQuestion("");
+      addBotAnswer(response.data.response);
+      // setUserQuestion("");
       setAskedQuestionsCount((prevCount) => prevCount + 1);
-
       // Check if askedQuestionsCount is equal to 3, then show feedback dialog
       if (askedQuestionsCount === 2) {
         setShowFeedbackDialog(true);
       }
     } catch (error) {
-      console.error("Error asking question:", error);
+      // console.error("Error asking question:", error);
+      // console.error("))))))))))))))))", response.data.message);
+
+      alert("PDF not uploaded!")
+      setConversation([]);
+
+    } finally {
+      setLoading(false);
+      // setConversation([]);
+
     }
   };
 
-  const handleClose = () => {
-    onClose();
+  const addUserQuestion = (question) => {
+    setConversation((prevConversation) => [
+      ...prevConversation,
+      { question: question },
+    ]);
+    // setUserQuestion("")
   };
 
-  const handleDeleteChat = () => {
-    setConversation([]);
+
+
+
+
+  const addBotAnswer = (answer) => {
+    setLoading(true);
+    <Loader />
+    // Displaying the answer letter by letter
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i <= answer.length) {
+        setConversation((prevConversation) => [
+          ...prevConversation.slice(0, -1),
+          { ...prevConversation[prevConversation.length - 1], answer: answer.substring(0, i) },
+        ]);
+        i++;
+      } else {
+        clearInterval(interval);
+        setLoading(false);
+      }
+    }, 10); // Adjust speed as needed
   };
+  
+
+  const handleKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      askQuestion();
+      setUserQuestion("");
+    }
+  };
+
 
   // To Handle feedback submission
   const handleFeedbackSubmit = (feedback) => {  
@@ -58,6 +105,14 @@ const QuestionInput = ({ onClose }) => {
       conversationRef.current.scrollTop = conversationRef.current.scrollHeight;
     }
   };
+
+  useEffect(() => {
+    if (resetChat) {
+      setConversation([]);
+      setAskedQuestionsCount(0);
+    }
+  }, [resetChat]);
+  
 
   useEffect(() => {
     scrollToBottom();
@@ -90,6 +145,9 @@ const QuestionInput = ({ onClose }) => {
               )}
             </div>
           ))}
+          {loading && (
+            <Loader />
+          )}
         </div>
       </div>
       <div className="input-container">
@@ -99,13 +157,12 @@ const QuestionInput = ({ onClose }) => {
             className="question-input"
             value={userQuestion}
             onChange={(e) => setUserQuestion(e.target.value)}
+            onKeyPress={handleKeyPress}
             placeholder="Ask me anything..."
           />
           <button className="submit-button" style={{marginTop: '-59px', marginLeft: '96%'}} onClick={askQuestion}>
             <ArrowUpwardIcon />
           </button>
-          
-          
         </div>
       </div>
       
@@ -119,3 +176,6 @@ const QuestionInput = ({ onClose }) => {
 };
 
 export default QuestionInput;
+
+
+

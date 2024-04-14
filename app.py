@@ -70,7 +70,7 @@ def ask_question():
     embeddings = OpenAIEmbeddings()
     knowledge_base = FAISS.from_texts(chunks, embeddings)
     docs = knowledge_base.similarity_search(user_question)
-    llm = OpenAI()
+    llm = OpenAI(model_name="gpt-3.5-turbo-instruct")
     chain = load_qa_chain(llm, chain_type="stuff")
     with get_openai_callback() as cb:
         response = chain.run(input_documents=docs, question=user_question)
@@ -78,18 +78,26 @@ def ask_question():
     print(response)
     return jsonify({'response': response})
 
+# Deleting the associated content of the pdf
+@app.route('/delete-pdf-content', methods=['DELETE'])
+def delete_pdf_content():
+    global uploaded_pdf, pdf_text
+    uploaded_pdf = None
+    pdf_text = None
+    print('------------deletion triggered')
+    return jsonify({'message': 'PDF content deleted successfully'})
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
 SUMMARIZATION_API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
 TRANSLATION_API_URL = "https://api-inference.huggingface.co/models/facebook/mbart-large-50-one-to-many-mmt"
 
 
-<<<<<<< HEAD
 # Hugging Face API token
 API_TOKEN = ""
-=======
-API_TOKEN = ""
 
->>>>>>> 5ca3129cab63fe39c7d96dc1156dfa9f2b40a985
 
 def query_api(api_url, payload):
     headers = {"Authorization": f"Bearer {API_TOKEN}"}
@@ -122,4 +130,4 @@ def summarize_text():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=1000) 
+    app.run(debug=True) 

@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/nitin/langchain-ask-pdf-main/myenv"
+VIRTUAL_ENV="/home/nitin/aiplanet-chatbot/myenv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
